@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String ERROR_TAG = "Error";
     private final String TAG = "Test";
     private final String DIRECTORY = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES) + "/CameraApp";
@@ -26,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private final String POST_FIX =".jpg";
 
     private final int REQUEST_IMAGE_CAPTURE = 1;
-
+    
     private ImageView mImageView;
-
     private File mFile;
+    private int mDesiredWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 startCamera();
             }
         });
+
+        mDesiredWidth = mImageView.getWidth();
     }
 
 
@@ -52,12 +53,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
             if(mFile.exists()){
-                Bitmap myBitmap = BitmapFactory.decodeFile(mFile.getAbsolutePath());
-                myBitmap = Bitmap.createScaledBitmap(myBitmap, 500, 500, true);
-                mImageView.setImageBitmap(myBitmap);
+                Bitmap image = BitmapFactory.decodeFile(mFile.getAbsolutePath());
+                image = scaleBitmap(image);
+                mImageView.setImageBitmap(image);
             }else
                 Log.d(TAG, "onActivityResult: mFile doesn't exits...");
         }
+    }
+
+    private Bitmap scaleBitmap(Bitmap bitmap){
+        mDesiredWidth = mDesiredWidth == 0 ? mImageView.getWidth() : mDesiredWidth;
+        int origWidth = bitmap.getWidth();
+        int origHeight = bitmap.getHeight();
+        if(origWidth > mDesiredWidth){
+            int desHeight = origHeight/(origWidth / mDesiredWidth);
+            bitmap = Bitmap.createScaledBitmap(bitmap, mDesiredWidth, desHeight, true);
+        }
+        return bitmap;
     }
 
     private void startCamera(){
