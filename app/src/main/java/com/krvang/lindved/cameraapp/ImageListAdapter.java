@@ -60,15 +60,13 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Recy
             mFileName = itemView.findViewById(R.id.txtFileName);
             mFileSize = itemView.findViewById(R.id.txtFileSize);
             mFileTimestamp = itemView.findViewById(R.id.txtFileTimestamp);
-            Log.d(TAG, "RecyclerViewHolder: " + mImageView.getWidth());
-
         }
 
         public void bind(Image image){
-
-            mFileName.setText(image.getName());
             mImageView.setImageBitmap(image.getBitmap());
-
+            mFileName.setText(image.getName());
+            mFileSize.setText("Size: " + image.getSize());
+            mFileTimestamp.setText("Last modified: " + image.getLastModified());
         }
 
 

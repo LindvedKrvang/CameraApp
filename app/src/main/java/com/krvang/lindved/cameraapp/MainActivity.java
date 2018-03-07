@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ListAdapter;
@@ -36,12 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_IMAGE_CAPTURE = 1;
 
     private RecyclerView mImagesRecyclerView;
-//    private ImageView mImageView;
+
     private File mFile;
-    private int mDesiredWidth;
-
     private List<Image> mImages;
-
     private IImageFactory mImageFactory;
 
     @Override
@@ -49,32 +49,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mImageView = findViewById(R.id.imgView);
-
         mImageFactory = new ImageFactory();
 
-        findViewById(R.id.btnTakePicture).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCamera();
-            }
-        });
+        loadFiles();
 
-//        mDesiredWidth = mImageView.getWidth();
+        initializeListView();
+    }
+
+    private void loadFiles(){
         mImages = new ArrayList<>();
 
         File dir = new File(DIRECTORY);
-
         File[] files = dir.listFiles();
         if(files != null){
             for(File file: files){
                 mImages.add(mImageFactory.createImage(file));
             }
         }
-
-        initializeListView();
-
-
     }
 
 
@@ -91,24 +82,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
             if(mFile.exists()){
-                Bitmap image = BitmapFactory.decodeFile(mFile.getAbsolutePath());
-                image = scaleBitmap(image);
-//                mImageView.setImageBitmap(image);
+                Image image = mImageFactory.createImage(mFile);
+                mImages.add(image);
             }else
                 Log.d(TAG, "onActivityResult: mFile doesn't exits...");
         }
     }
 
-    private Bitmap scaleBitmap(Bitmap bitmap){
-//        mDesiredWidth = mDesiredWidth == 0 ? mImageView.getWidth() : mDesiredWidth;
-        mDesiredWidth = 600;
-        int origWidth = bitmap.getWidth();
-        int origHeight = bitmap.getHeight();
-        if(origWidth > mDesiredWidth){
-            int desHeight = origHeight/(origWidth / mDesiredWidth);
-            bitmap = Bitmap.createScaledBitmap(bitmap, mDesiredWidth, desHeight, true);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.camera_action_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_take_picture:{
+                startCamera();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return bitmap;
     }
 
     private void startCamera(){

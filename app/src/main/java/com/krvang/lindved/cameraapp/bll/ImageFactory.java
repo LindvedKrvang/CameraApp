@@ -7,6 +7,10 @@ import android.graphics.Picture;
 import com.krvang.lindved.cameraapp.be.Image;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Date;
 
 /**
  * Created by Lindved on 07-03-2018.
@@ -22,8 +26,11 @@ public class ImageFactory implements IImageFactory{
         image = scaleBitmap(image);
         String name = file.getName();
 //        String date = getTimestamp(name);
+//        Path path = file.getAbsolutePath();
+        String size = String.valueOf(file.length()) + " bytes";
+        Date lastModified = new Date(file.lastModified());
 
-        return new Image(image, name, getSize(), "TimeStamp: ");
+        return new Image(image, name, size, lastModified);
     }
 
     private String getSize(){
