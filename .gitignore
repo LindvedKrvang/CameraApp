@@ -1,22 +1,22 @@
 # Created by https://www.gitignore.io/api/java,gradle,android,androidstudio
 
 ### Android ###
-# Built application files
+# Built application pictures
 *.apk
 *.ap_
 
 # Files for the ART/Dalvik VM
 *.dex
 
-# Java class files
+# Java class pictures
 *.class
 
-# Generated files
+# Generated pictures
 bin/
 gen/
 out/
 
-# Gradle files
+# Gradle pictures
 .gradle/
 build/
 
@@ -29,7 +29,7 @@ proguard/
 # Log Files
 *.log
 
-# Android Studio Navigation editor temp files
+# Android Studio Navigation editor temp pictures
 .navigation/
 
 # Android Studio captures folder
@@ -55,20 +55,20 @@ freeline_project_description.json
 gen-external-apklibs
 
 ### AndroidStudio ###
-# Covers files to be ignored for android development using Android Studio.
+# Covers pictures to be ignored for android development using Android Studio.
 
-# Built application files
+# Built application pictures
 
 # Files for the ART/Dalvik VM
 
-# Java class files
+# Java class pictures
 
-# Generated files
+# Generated pictures
 
-# Gradle files
+# Gradle pictures
 .gradle
 
-# Signing files
+# Signing pictures
 .signing/
 
 # Local configuration file (sdk path, etc)
@@ -115,7 +115,7 @@ obj/
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 
-# OS-specific files
+# OS-specific pictures
 .DS_Store
 .DS_Store?
 ._*
@@ -124,7 +124,7 @@ obj/
 ehthumbs.db
 Thumbs.db
 
-# Legacy Eclipse project files
+# Legacy Eclipse project pictures
 .classpath
 .project
 .cproject
@@ -140,7 +140,7 @@ Thumbs.db
 # virtual machine crash logs (Reference: http://www.java.com/en/download/help/error_hotspot.xml)
 hs_err_pid*
 
-## Plugin-specific files:
+## Plugin-specific pictures:
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -166,7 +166,7 @@ fabric.properties
 
 # Log file
 
-# BlueJ files
+# BlueJ pictures
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
@@ -185,7 +185,7 @@ fabric.properties
 # Ignore Gradle GUI config
 gradle-app.setting
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+# Avoid ignoring Gradle wrapper jar file (.jar pictures are usually ignored)
 !gradle-wrapper.jar
 
 # Cache of project
